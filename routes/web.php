@@ -8,7 +8,7 @@ Route::get('/', function () {
 
 // Tambahan route
 Route::get('/profil', function () {
-    return "profil";
+    return view('profil');
 });
 
 Route::get('/katalog', function () {
@@ -22,4 +22,3 @@ Route::get('/bantuan', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
-
