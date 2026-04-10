@@ -4,7 +4,7 @@
     <title>Bantuan</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<div class="bg-blue-600 text-white p-4 flex gap-4">
+<div class="bg-blue-700 text-white p-4 flex gap-4">
     <a href="/" class="hover:underline">Home</a>
     <a href="/profil" class="hover:underline">Profil</a>
     <a href="/katalog" class="hover:underline">Katalog</a>
