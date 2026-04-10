@@ -11,7 +11,7 @@
     <a href="/bantuan" class="hover:underline">Bantuan</a>
     <a href="/contact" class="hover:underline">Kontak</a>
 </div>
-<body class="bg-slate-100 flex items-center justify-center h-screen">
+<body class="bg-gray-100 p-10">
 
 <div class="bg-white p-8 rounded-xl shadow-lg text-center">
     <h1 class="text-3xl font-bold mb-6 text-center">Profil Praktik</h1>
