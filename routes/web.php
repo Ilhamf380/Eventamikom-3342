@@ -8,7 +8,7 @@ Route::get('/', function () {
 
 // Tambahan route
 Route::get('/profil', function () {
-    return "HALAMAN PROFIL";
+    return "profil";
 });
 
 Route::get('/katalog', function () {
