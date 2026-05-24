@@ -23,15 +23,23 @@
                 Main Menu
             </p>
 
-            <a href="/admin" class="flex items-center gap-3 px-4 py-3 bg-indigo-800 text-white rounded-xl font-bold">
+            <a href="/admin" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold
+                {{ request()->is('admin') ? 'bg-indigo-800 text-white' : 'hover:bg-indigo-800' }}">
                 Dashboard
             </a>
 
-            <a href="/admin/events" class="flex items-center gap-3 px-4 py-3 hover:bg-indigo-800 rounded-xl font-bold">
-                Kelola Event
+            <a href="{{ route('admin.categories.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold
+                {{ request()->is('admin/categories*') ? 'bg-indigo-800 text-white' : 'hover:bg-indigo-800' }}">
+                Kategori
             </a>
 
-            <a href="/admin/transactions" class="flex items-center gap-3 px-4 py-3 hover:bg-indigo-800 rounded-xl font-bold">
+            <a href="{{ route('admin.partners.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold
+                {{ request()->is('admin/partners*') ? 'bg-indigo-800 text-white' : 'hover:bg-indigo-800' }}">
+                Partner
+            </a>
+
+            <a href="/admin/transactions" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold
+                {{ request()->is('admin/transactions*') ? 'bg-indigo-800 text-white' : 'hover:bg-indigo-800' }}">
                 Laporan Transaksi
             </a>
         </nav>

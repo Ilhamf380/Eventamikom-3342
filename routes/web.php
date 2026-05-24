@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PartnerController;
 
 Route::get('/profil', function () {
     return view('profil');
@@ -33,4 +35,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/events', [AdminEventController::class, 'index'])->name('events.index');
     Route::get('/transactions', [AdminEventController::class, 'transactions'])->name('transactions');
+    Route::resource('/categories', CategoryController::class);
+    Route::resource('/partners', PartnerController::class);
 });

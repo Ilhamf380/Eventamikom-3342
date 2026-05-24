@@ -16,8 +16,10 @@ class EventController extends Controller
         return view('checkout');
     }
 
-    public function ticket()
+    public function ticket(Request $request)
     {
-        return view('ticket');
+        $name = $request->name;
+
+        return view('ticket', compact('name'));
     }
 }

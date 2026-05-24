@@ -37,12 +37,12 @@
         <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
             <h3 class="text-xl font-bold mb-6">Data Pemesan</h3>
 
-            <form class="space-y-4">
-                <input type="text" placeholder="Nama" class="w-full p-3 border rounded-xl">
+            <form action="{{ route('ticket') }}" method="GET" class="space-y-4">
+                <input type="text" name="name" placeholder="Nama" class="w-full p-3 border rounded-xl">
                 <input type="email" placeholder="Email" class="w-full p-3 border rounded-xl">
                 <input type="tel" placeholder="No HP" class="w-full p-3 border rounded-xl">
 
-                <button type="button" onclick="showMidtrans()"
+                <button type="submit" onclick="showMidtrans()"
                     class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold">
                     Bayar Sekarang
                 </button>
