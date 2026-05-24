@@ -150,4 +150,35 @@
             </div>
         </div>
     </section>
+    <div class="max-w-7xl mx-auto px-6 py-16">
+    
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-black text-slate-900">
+            Partner Kami
+        </h2>
+
+        <p class="text-slate-500 mt-2">
+            Platform ini didukung oleh partner terpercaya
+        </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        
+        @foreach($partners as $partner)
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 flex flex-col items-center shadow-sm">
+                
+                <img src="{{ $partner->logo_url }}"
+                     alt="{{ $partner->name }}"
+                     class="h-16 object-contain mb-4">
+
+                <h3 class="font-bold text-slate-800">
+                    {{ $partner->name }}
+                </h3>
+
+            </div>
+        @endforeach
+
+    </div>
+
+</div>
 @endsection
