@@ -167,7 +167,7 @@
         @foreach($partners as $partner)
             <div class="bg-white rounded-3xl border border-slate-200 p-6 flex flex-col items-center shadow-sm">
                 
-                <img src="{{ $partner->logo_url }}"
+                <img src="{{ $partner->logo_url ?? asset('assets/default.png') }}"
                      alt="{{ $partner->name }}"
                      class="h-16 object-contain mb-4">
 
