@@ -28,6 +28,11 @@
                 Dashboard
             </a>
 
+            <a href="{{ route('admin.events.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold
+             {{ request()->is('admin/events*') ? 'bg-indigo-800 text-white' : 'hover:bg-indigo-800' }}">
+                Kelola Event 
+            </a>
+
             <a href="{{ route('admin.categories.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold
                 {{ request()->is('admin/categories*') ? 'bg-indigo-800 text-white' : 'hover:bg-indigo-800' }}">
                 Kategori

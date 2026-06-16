@@ -50,3 +50,6 @@ https://eventamikom-3342-main-fbwbs1.free.laravel.cloud/admin
 
 User (Non Admin):
 https://eventamikom-3342-main-fbwbs1.free.laravel.cloud/
+
+TUGAS 5
+ELOQUENT ORM & CRUD = https://drive.google.com/file/d/1FFYksHSJoiIjnwgCOhmD88d4UNLovoUh/view?usp=sharing
