@@ -56,3 +56,4 @@ ELOQUENT ORM & CRUD = https://drive.google.com/file/d/1FFYksHSJoiIjnwgCOhmD88d4U
 https://eventamikom-3342-main-fbwbs1.free.laravel.cloud/admin/events
 
 TUGAS 6
+https://eventamikom-3342-main-fbwbs1.free.laravel.cloud/
