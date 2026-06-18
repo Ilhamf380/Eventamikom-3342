@@ -4,24 +4,33 @@
 
 <div class="bg-gray-100 p-10">
 
-    <h1 class="text-3xl font-bold mb-6 text-center">Katalog Event</h1>
+    <h1 class="text-4xl font-bold mb-10 text-center">
+        Katalog Event
+    </h1>
 
-    <div class="grid grid-cols-3 gap-6">
+    <div class="grid md:grid-cols-3 gap-6">
 
-        <div class="bg-white p-4 rounded shadow">
-            <h2 class="font-bold">Event Musik</h2>
-            <p>Konser seru di Amikom</p>
-        </div>
+        @forelse($categories as $category)
 
-        <div class="bg-white p-4 rounded shadow">
-            <h2 class="font-bold">Seminar IT</h2>
-            <p>Belajar teknologi terbaru</p>
-        </div>
+            <div class="bg-white p-6 rounded-xl shadow">
 
-        <div class="bg-white p-4 rounded shadow">
-            <h2 class="font-bold">Workshop</h2>
-            <p>Praktek langsung skill</p>
-        </div>
+                <h2 class="text-xl font-bold mb-2">
+                    {{ $category->name }}
+                </h2>
+
+                <p class="text-gray-500">
+                    Slug: {{ $category->slug }}
+                </p>
+
+            </div>
+
+        @empty
+
+            <div class="col-span-3 text-center text-gray-500">
+                Belum ada kategori.
+            </div>
+
+        @endforelse
 
     </div>
 

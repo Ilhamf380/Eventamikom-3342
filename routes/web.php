@@ -1,20 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Models\Category;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\CheckoutController;
+
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PartnerController;
+
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\TransactionController;
+
+// Public Pages
+
 
 Route::get('/profil', function () {
     return view('profil');
 });
 
 Route::get('/katalog', function () {
-    return view('katalog');
+    $categories = Category::all();
+    return view('katalog', compact('categories'));
 })->name('katalog');
 
 Route::get('/bantuan', function () {
@@ -25,18 +36,39 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-// Route User Area
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/event/1', [EventController::class, 'show'])->name('events.show');
-Route::get('/checkout', [EventController::class, 'checkout'])->name('checkout');
-Route::get('/my-ticket', [EventController::class, 'ticket'])->name('ticket');
+// User Area
+
+
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
+
+Route::get('/event/{event}', [EventController::class, 'show'])
+    ->name('events.show');
+
+Route::get('/checkout', [EventController::class, 'checkout'])
+    ->name('checkout');
+
+Route::get('/my-ticket', [EventController::class, 'ticket'])
+    ->name('ticket');
+
+Route::get('/checkout/{event}', [CheckoutController::class, 'create'])
+    ->name('checkout.create');
+
+Route::post('/checkout/{event}', [CheckoutController::class, 'store'])
+    ->name('checkout.store');
+
+// Login Redirect 
 
 Route::get('/login', function () {
     return redirect()->route('admin.login');
 })->name('login');
 
-// Route Admin Area
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+// Admin Area 
+
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.'
+], function () {
 
     Route::get('/login', [AuthController::class, 'showLogin'])
         ->name('login');
@@ -54,8 +86,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         Route::resource('/events', AdminEventController::class);
 
-        Route::get('/transactions', [AdminEventController::class, 'transactions'])
-            ->name('transactions');
+        Route::get('/transactions', [TransactionController::class, 'index'])
+            ->name('transactions.index');
 
         Route::resource('/categories', CategoryController::class);
 

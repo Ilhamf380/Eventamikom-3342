@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
 
 class EventController extends Controller
 {
-    public function show()
+    public function show(Event $event)
     {
-        return view('event-detail');
+        $categories = \App\Models\Category::all();
+
+        return view('event-detail', compact('event', 'categories'));
     }
 
     public function checkout()

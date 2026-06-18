@@ -59,8 +59,24 @@
                 <h2 class="text-3xl font-extrabold mb-2">Event Terdekat</h2>
                 <p class="text-slate-500 font-medium">Jangan sampai ketinggalan acara seru minggu ini!</p>
             </div>
-            <div class="flex gap-2">
-                <button class="p-3 border rounded-xl hover:bg-white hover:shadow-md transition">Semua Kategori</button>
+            <div class="flex flex-wrap gap-2">
+
+                @foreach($categories as $category)
+
+                @php
+                    $icon = match($category->name){
+                        'Musik' => '🎵',
+                        'Teknologi' => '💻',
+                        'Workshop' => '🛠️',
+                        default => '📌'
+                    };
+                @endphp
+
+                <span class="px-4 py-2 bg-white rounded-full border shadow-sm">
+                    {{ $icon }} {{ $category->name }}
+                </span>
+                @endforeach
+
             </div>
         </div>
 
@@ -73,18 +89,20 @@
 
     <div class="relative overflow-hidden aspect-[3/4]">
 
-        @if($event->category->slug == 'pop')
+        @if($event->title == 'Jazz Night 2024')
     <img src="{{ asset('assets/concert.png') }}"
-         alt="{{ $event->title }}"
-         class="w-full h-full object-cover">
-        @elseif($event->category->slug == 'rock')
+        alt="{{ $event->title }}"
+        class="w-full h-full object-cover">
+
+        @elseif($event->title == 'AI Workshop')
     <img src="{{ asset('assets/workshop.png') }}"
-         alt="{{ $event->title }}"
-         class="w-full h-full object-cover">
+        alt="{{ $event->title }}"
+        class="w-full h-full object-cover">
+
         @else
     <img src="{{ asset('assets/hackathon.png') }}"
-         alt="{{ $event->title }}"
-         class="w-full h-full object-cover">
+        alt="{{ $event->title }}"
+        class="w-full h-full object-cover">
         @endif
 
         <div
@@ -116,11 +134,9 @@
                 Rp {{ number_format($event->price,0,',','.') }}
             </span>
 
-            <a href="{{ url('/event/1') }}"
-               class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition">
-
+            <a href="{{ url('/event/'.$event->id) }}"
+            class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition">
                 Lihat Detail
-
             </a>
 
         </div>
