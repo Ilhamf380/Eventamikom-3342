@@ -50,9 +50,14 @@
         </nav>
 
         <div class="pt-6 border-t border-indigo-800">
-            <a href="/" class="flex items-center gap-3 px-4 py-3 text-indigo-300 hover:text-white font-medium">
-                Keluar
-            </a>
+            <form action="{{ route('admin.logout') }}" method="POST">
+                @csrf
+
+                <button type="submit"
+                    class="w-full flex items-center gap-3 px-4 py-3 text-indigo-300 hover:text-white font-medium text-left">
+                    Keluar
+                </button>
+            </form>
         </div>
     </aside>
 

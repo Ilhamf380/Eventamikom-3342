@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\Admin\AuthController;
 
 Route::get('/profil', function () {
     return view('profil');
@@ -30,11 +31,36 @@ Route::get('/event/1', [EventController::class, 'show'])->name('events.show');
 Route::get('/checkout', [EventController::class, 'checkout'])->name('checkout');
 Route::get('/my-ticket', [EventController::class, 'ticket'])->name('ticket');
 
+Route::get('/login', function () {
+    return redirect()->route('admin.login');
+})->name('login');
+
 // Route Admin Area
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/events', AdminEventController::class);
-    Route::get('/transactions', [AdminEventController::class, 'transactions'])->name('transactions');
-    Route::resource('/categories', CategoryController::class);
-    Route::resource('/partners', PartnerController::class);
+
+    Route::get('/login', [AuthController::class, 'showLogin'])
+        ->name('login');
+
+    Route::post('/login', [AuthController::class, 'login'])
+        ->name('login.post');
+
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->name('logout');
+
+    Route::middleware(['auth', 'admin'])->group(function () {
+
+        Route::get('/', [DashboardController::class, 'index'])
+            ->name('dashboard');
+
+        Route::resource('/events', AdminEventController::class);
+
+        Route::get('/transactions', [AdminEventController::class, 'transactions'])
+            ->name('transactions');
+
+        Route::resource('/categories', CategoryController::class);
+
+        Route::resource('/partners', PartnerController::class);
+
+    });
+
 });

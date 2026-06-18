@@ -5,11 +5,19 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        User::create([
+            'name' => 'admin amikom',
+            'email' => 'admin@amikom.ac.id',
+            'password' => bcrypt('password'),
+            'role' => 'admin'
+        ]);
+
         Category::create([
             'name' => 'Musik',
             'slug' => 'musik'
