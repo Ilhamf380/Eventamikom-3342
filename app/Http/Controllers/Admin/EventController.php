@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Event;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -28,14 +29,20 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'category_id' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'date' => 'required|date',
             'location' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'stock' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|numeric|min:1',
+            'poster' => 'nullable|image|max:2048',
         ]);
+
+        // Upload poster jika ada
+        if ($request->hasFile('poster')) {
+            $data['poster_path'] = $request->file('poster')->store('posters', 'public');
+        }
 
         Event::create($data);
 
@@ -62,20 +69,32 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $data = $request->validate([
-            'category_id' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'date' => 'required|date',
             'location' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'stock' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|numeric|min:1',
+            'poster' => 'nullable|image|max:2048',
         ]);
 
-            $event->update($data);
+        if ($request->hasFile('poster')) {
+
+            // Hapus gambar lama
+            if ($event->poster_path) {
+                Storage::disk('public')->delete($event->poster_path);
+            }
+
+            // Upload gambar baru
+            $data['poster_path'] = $request->file('poster')->store('posters', 'public');
+        }
+
+        $event->update($data);
 
         return redirect()
             ->route('admin.events.index')
-            ->with('success', 'Data event berhasil diperbarui.');
+            ->with('success', 'Event berhasil diperbarui.');
     }
 
     public function transactions()

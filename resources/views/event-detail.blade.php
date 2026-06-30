@@ -1,20 +1,19 @@
 @extends('layouts.app')
-
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
 @section('content')
 
 <main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
     <!-- Left: Poster -->
     <div class="lg:col-span-1">
         <div class="sticky top-32">
-            @if($event->poster_path)
-                <img src="{{ asset($event->poster_path) }}"
-                    alt="{{ $event->title }}"
-                    class="w-full rounded-[2.5rem] shadow-2xl border-8 border-white">
-            @else
-                <img src="{{ asset('assets/concert.png') }}"
-                    alt="{{ $event->title }}"
-                    class="w-full rounded-[2.5rem] shadow-2xl border-8 border-white">
-            @endif
+            <img
+                src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path))
+                    ? asset('storage/' . $event->poster_path)
+                    : 'https://placehold.co/200x600' }}"
+                alt="{{ $event->title }}"
+                class="w-full rounded-[2.5rem] shadow-2xl border-8 border-white object-cover aspect-[3/4]">
             <div class="mt-8 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
                 <h4 class="font-bold mb-4">Penyelenggara</h4>
                 <div class="flex items-center gap-4">
@@ -42,7 +41,7 @@
             <div class="flex flex-wrap gap-6 text-slate-500 font-medium">
                 <div class="flex items-center gap-2">
                     <span>
-                        {{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}
+                        {{ \Carbon\Carbon::parse($event->date)->format('d M Y, H:i') }}
                     </span>
                 </div>
                 <div class="flex items-center gap-2">
@@ -66,6 +65,9 @@
                     <h2 class="text-5xl font-black">
                         Rp {{ number_format($event->price,0,',','.') }}
                     </h2>
+                    <p class="text-indigo-200 mt-3">
+                        Sisa Stok: <span class="font-bold">{{ $event->stock }}</span> Tiket lagi!
+                    </p>
                 </div>
                 <div>
                     <a href="{{ route('checkout.create', $event->id) }}"

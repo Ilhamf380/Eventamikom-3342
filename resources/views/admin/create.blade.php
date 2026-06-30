@@ -13,7 +13,7 @@
 
 <div class="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8">
 
-    <form action="{{ route('admin.events.store') }}" method="POST">
+    <form action="{{ route('admin.events.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-6">
@@ -110,6 +110,18 @@
                     required>
             </div>
 
+        </div>
+
+        <div class="mb-6">
+            <label class="block font-bold mb-2">
+                Poster Event (Opsional)
+            </label>
+
+            <input
+                type="file"
+                name="poster"
+                accept="image/*"
+                class="w-full border rounded-xl px-4 py-3">
         </div>
 
         <div class="mt-8 flex gap-4">

@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
 @section('content')
 
 <header class="flex justify-between items-center mb-10">
@@ -44,8 +46,11 @@
                 </td>
 
                 <td class="px-8 py-6">
-                    <img src="https://placehold.co/80x100"
-                         class="w-16 h-20 rounded-xl">
+                    <img
+                        src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path))
+                            ? asset('storage/' . $event->poster_path)
+                            : 'https://placehold.co/80x100' }}"
+                        class="w-16 h-20 rounded-xl object-cover shadow-sm">
                 </td>
 
                 <td class="px-8 py-6">

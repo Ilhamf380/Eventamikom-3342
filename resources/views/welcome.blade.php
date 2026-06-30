@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
 @section('content')
     <!-- Hero Section -->
     <section class="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-12">
@@ -89,21 +91,12 @@
 
     <div class="relative overflow-hidden aspect-[3/4]">
 
-        @if($event->title == 'Jazz Night 2024')
-    <img src="{{ asset('assets/concert.png') }}"
-        alt="{{ $event->title }}"
-        class="w-full h-full object-cover">
-
-        @elseif($event->title == 'AI Workshop')
-    <img src="{{ asset('assets/workshop.png') }}"
-        alt="{{ $event->title }}"
-        class="w-full h-full object-cover">
-
-        @else
-    <img src="{{ asset('assets/hackathon.png') }}"
-        alt="{{ $event->title }}"
-        class="w-full h-full object-cover">
-        @endif
+        <img
+            src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path))
+                ? asset('storage/' . $event->poster_path)
+                : 'https://placehold.co/200x600' }}"
+            alt="{{ $event->title }}"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
 
         <div
             class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur rounded-lg text-xs font-bold uppercase text-indigo-600">
@@ -134,8 +127,8 @@
                 Rp {{ number_format($event->price,0,',','.') }}
             </span>
 
-            <a href="{{ url('/event/'.$event->id) }}"
-            class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition">
+            <a href="{{ route('events.show', $event->id) }}"
+                class="px-5 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-bold hover:bg-indigo-600 hover:text-white transition">
                 Lihat Detail
             </a>
 
